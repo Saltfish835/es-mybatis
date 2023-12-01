@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Module-Origin: git@github.com:elastic/elasticsearch.git
+Change: c4138e51121ef06a6404866cddc601906fe5c868
+X-Compile-Elasticsearch-Version: 7.10.2
+X-Compile-Lucene-Version: 8.6.2
+X-Compile-Elasticsearch-Snapshot: false
+Implementation-Title: org.elasticsearch.plugin#jdbc;7.10.2
+Implementation-Version: 7.10.2
+Built-Status: integration
+Built-By: vagrant
+Built-OS: Linux
+Build-Date: 2021-02-14T10:36:16.141335Z
+Gradle-Version: 6.5
+Created-By: 14+35-1460 (Oracle Corporation)
+Build-Java-Version: 14
+X-Compile-Target-JDK: 1.8
+X-Compile-Source-JDK: 1.8

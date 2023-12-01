@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.UserMapper">
+
+    <select id="queryUser" resultType="org.example.bean.User">
+        SELECT name,age,gender
+        FROM tppa_test
+    </select>
+
+    <select id="queryUserByName" parameterType="java.lang.String" resultType="org.example.bean.User">
+        SELECT name,age,gender
+        FROM tppa_test
+        WHERE name = #{name}
+    </select>
+
+    <select id="queryUsers" resultType="org.example.bean.User">
+        SELECT name,age,gender
+        FROM tppa_test
+    </select>
+
+    <select id="query" parameterType="org.example.bean.User" resultType="org.example.bean.User">
+        SELECT name,age,gender
+        FROM tppa_test
+        WHERE gender = #{gender}
+    </select>
+</mapper>
