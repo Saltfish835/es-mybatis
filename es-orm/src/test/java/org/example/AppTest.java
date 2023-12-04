@@ -3,6 +3,7 @@ package org.example;
 import static org.junit.Assert.assertTrue;
 
 import org.example.bean.User;
+import org.example.mapper.BookMapper;
 import org.example.mapper.UserMapper;
 import org.example.orm.session.ESProperties;
 import org.example.orm.session.SqlSession;
@@ -82,6 +83,25 @@ public class AppTest
         user.setGender("male");
         List<User> userList = userMapper.query(user);
         System.out.println(userList);
+    }
+
+    @Test
+    public void testObjectMethod() {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(esProperties);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        String s = userMapper.toString();
+        System.out.println(s);
+    }
+
+
+    @Test
+    public void testNotExistMethod() {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(esProperties);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+        String s = bookMapper.toString();
+        System.out.println(s);
     }
 
 
