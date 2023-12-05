@@ -11,7 +11,7 @@
   <modules>
     <module>x-pack-sql-jdbc</module>
     <module>es-orm</module>
-      <module>mybatis-spring</module>
+    <module>mybatis-spring</module>
   </modules>
 
   <properties>

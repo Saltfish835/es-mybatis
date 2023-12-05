@@ -1,6 +1,5 @@
 package org.example;
 
-import static org.junit.Assert.assertTrue;
 
 import org.example.bean.User;
 import org.example.mapper.BookMapper;

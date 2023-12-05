@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置数据源-->
+    <bean id="esProperties" class="org.example.orm.session.ESProperties">
+        <property name="jdbcUrl" value="jdbc:es://http://127.0.0.1:9200"/>
+        <!--mapper文件的位置-->
+        <property name="mappersPath" value="mapper/UserMapper.xml"/>
+    </bean>
+
+    <!--配置SqlSessionFactoryBean，用于产生SqlSessionFactory对象，并将其注册到IoC容器-->
+    <bean id="sqlSessionFactory" class="org.example.mybatis.spring.SqlSessionFactoryBean">
+        <property name="esProperties" ref="esProperties"/>
+    </bean>
+
+    <!--配置MapperScanner，用于扫描指定目录中mapper文件，产生mapper对象并将其注册到IoC容器-->
+    <bean id="mapperScannerConfigurer" class="org.example.mybatis.spring.MapperScannerConfigurer">
+        <!--mapper接口的位置-->
+        <property name="basePackage" value="org.example.mapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+</beans>

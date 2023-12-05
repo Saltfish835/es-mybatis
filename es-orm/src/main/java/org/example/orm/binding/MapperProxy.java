@@ -40,9 +40,9 @@ public class MapperProxy<T> implements InvocationHandler {
         String statement = mapperInterface.getName() +"."+ method.getName();
         // 通过返回值类型判断最终要执行什么方法
         if(method.getReturnType() == List.class) {
-            return sqlSession.selectList(statement, args[0]);
+            return sqlSession.selectList(statement, args == null ? null : args[0]);
         }else {
-            return sqlSession.selectOne(statement, args[0]);
+            return sqlSession.selectOne(statement, args == null ? null : args[0]);
         }
     }
 }
