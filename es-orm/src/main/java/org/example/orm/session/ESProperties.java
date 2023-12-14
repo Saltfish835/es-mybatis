@@ -7,14 +7,10 @@ public class ESProperties {
     private String jdbcUrl;
 
     /**
-     * Mapper接口路径
+     * Mapper文件所在目录
      */
     private String basePackage;
 
-    /**
-     * Mapper文件路径
-     */
-    private String mappersPath;
 
     public String getJdbcUrl() {
         return jdbcUrl;
@@ -32,11 +28,4 @@ public class ESProperties {
         this.basePackage = basePackage;
     }
 
-    public String getMappersPath() {
-        return mappersPath;
-    }
-
-    public void setMappersPath(String mappersPath) {
-        this.mappersPath = mappersPath;
-    }
 }

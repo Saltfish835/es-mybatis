@@ -1,9 +1,8 @@
 package org.example.orm.session.defaults;
 
-import lombok.extern.slf4j.Slf4j;
 import org.example.orm.session.Configuration;
 import org.example.orm.session.SqlSession;
-import org.example.orm.session.XNode;
+import org.example.orm.xml.XNode;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -11,7 +10,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-@Slf4j
 public class DefaultSqlSession implements SqlSession {
 
     /**
@@ -32,7 +30,7 @@ public class DefaultSqlSession implements SqlSession {
     public DefaultSqlSession(Configuration configuration) {
         this.configuration = configuration;
         this.connection = configuration.getConnection();
-        this.mapperElement = configuration.getMapperElement();
+        this.mapperElement = configuration.getMappedStatements();
     }
 
     /**
@@ -133,7 +131,7 @@ public class DefaultSqlSession implements SqlSession {
                 list.add(obj);
             }
         }catch (Exception e) {
-            log.error("execute resultSet2Obj error",e);
+            e.printStackTrace();
         }
         return list;
     }

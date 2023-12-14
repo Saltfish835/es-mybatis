@@ -39,16 +39,31 @@ public class MapperRegistry {
      * @return
      */
     public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
-        if(type.isInterface()) {
-            if(this.hasMapper(type)) {
-                MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory)this.knownMappers.get(type);
+        MapperProxyFactory<T> mapperProxyFactory = this.knownMappers.get(type);
+        if(mapperProxyFactory == null) {
+            throw new RuntimeException("Type " +type+ " is not known to the MapperRegistry");
+        }else {
+            try{
                 return mapperProxyFactory.newInstance(sqlSession);
-            }else {
-                MapperProxyFactory mapperProxyFactory = new MapperProxyFactory(type);
-                this.knownMappers.put(type, mapperProxyFactory);
-                return (T)mapperProxyFactory.newInstance(sqlSession);
+            }catch (Exception e) {
+                throw new RuntimeException("Error getting mapper instance. Cause: "+e, e);
             }
         }
-        return null;
     }
+
+
+    /**
+     * 添加Mapper接口对应的工厂
+     * @param type
+     * @param <T>
+     */
+    public <T> void addMapper(Class<T> type) {
+        if(type.isInterface()) {
+            if(this.hasMapper(type)) {
+                throw new RuntimeException("Type "+ type +" is already known to the MapperRegistry.");
+            }
+            this.knownMappers.put(type, new MapperProxyFactory(type));
+        }
+    }
+
 }

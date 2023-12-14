@@ -11,6 +11,10 @@ import org.example.orm.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -20,14 +24,14 @@ public class AppTest
 {
 
     private String jdbcUrl = "jdbc:es://http://127.0.0.1:9200";
-    private String mappersPath = "mapper/UserMapper.xml";
+    private String basePackage = "mapper";
     private ESProperties esProperties;
 
     @Before
     public void getSqlSession() {
         this.esProperties = new ESProperties();
         esProperties.setJdbcUrl(jdbcUrl);
-        esProperties.setMappersPath(mappersPath);
+        esProperties.setBasePackage(basePackage);
     }
 
     @Test
@@ -103,5 +107,21 @@ public class AppTest
         System.out.println(s);
     }
 
+
+    @Test
+    public void listBasePackage() {
+        String basePackage = "mapper";
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        String path = classLoader.getResource("").getPath();
+        System.out.println(path+basePackage);
+
+        File file = new File(path + basePackage);
+        if(file.isDirectory()) {
+            File[] files = file.listFiles();
+            for(File f : files) {
+                System.out.println(f.getName());
+            }
+        }
+    }
 
 }

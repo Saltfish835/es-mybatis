@@ -1,4 +1,4 @@
-package org.example.orm.session;
+package org.example.orm.xml;
 
 import java.util.Map;
 

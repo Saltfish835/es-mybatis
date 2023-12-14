@@ -1,6 +1,7 @@
 package org.example.orm.session;
 
 import org.example.orm.binding.MapperRegistry;
+import org.example.orm.xml.XNode;
 
 import java.sql.Connection;
 import java.util.Map;
@@ -22,8 +23,9 @@ public class Configuration {
 
     /**
      * xml文件解析结果
+     * 全限定类名.方法 ----> xml节点（包含sql、参数类型、返回值类型）
      */
-    protected Map<String, XNode>  mapperElement;
+    protected Map<String, XNode>  mappedStatements;
 
     /**
      * 存取Mapper代理对象
@@ -34,16 +36,20 @@ public class Configuration {
         this.mapperRegistry = new MapperRegistry(this);
     }
 
+    public Map<String, XNode> getMappedStatements() {
+        return mappedStatements;
+    }
+
+    public void setMappedStatements(Map<String, XNode> mappedStatements) {
+        this.mappedStatements = mappedStatements;
+    }
+
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
 
     public void setDataSource(Map<String, String> dataSource) {
         this.dataSource = dataSource;
-    }
-
-    public void setMapperElement(Map<String, XNode> mapperElement) {
-        this.mapperElement = mapperElement;
     }
 
     public Connection getConnection() {
@@ -54,12 +60,12 @@ public class Configuration {
         return dataSource;
     }
 
-    public Map<String, XNode> getMapperElement() {
-        return mapperElement;
-    }
-
     public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
         return this.mapperRegistry.getMapper(type, sqlSession);
+    }
+
+    public <T> void addMapper(Class<T> type) {
+        this.mapperRegistry.addMapper(type);
     }
 
 }
