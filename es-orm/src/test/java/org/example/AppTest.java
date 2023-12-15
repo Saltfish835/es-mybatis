@@ -1,6 +1,7 @@
 package org.example;
 
 
+import org.example.bean.Book;
 import org.example.bean.User;
 import org.example.mapper.BookMapper;
 import org.example.mapper.UserMapper;
@@ -12,9 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -122,6 +120,15 @@ public class AppTest
                 System.out.println(f.getName());
             }
         }
+    }
+
+    @Test
+    public void testMutlMapper() {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(esProperties);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+        Book book = bookMapper.queryBook();
+        System.out.println(book.toString());
     }
 
 }

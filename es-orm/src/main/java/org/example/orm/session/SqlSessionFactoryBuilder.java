@@ -1,7 +1,7 @@
 package org.example.orm.session;
 
 import org.example.orm.session.defaults.DefaultSqlSessionFactory;
-import org.example.orm.xml.XMLConfigBuilder;
+import org.example.orm.xml.XMLMapperBuilder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,7 +27,7 @@ public class SqlSessionFactoryBuilder {
         // 根据配置文件产生connection对象
         configuration.setConnection(getConnection(esProperties));
         // 解析xml文件，生成mapper接口代理工厂及XNode保存到configuration对象中
-        XMLConfigBuilder mapperParser = new XMLConfigBuilder(esProperties.getBasePackage(), configuration);
+        XMLMapperBuilder mapperParser = new XMLMapperBuilder(esProperties.getBasePackage(), configuration);
         mapperParser.parse();
         // 创建SqlSessionFactory对象
         return new DefaultSqlSessionFactory(configuration);

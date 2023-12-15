@@ -6,13 +6,10 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.example.orm.session.Configuration;
 import org.example.orm.session.IgnoreDTDEntityResolver;
-import org.example.orm.session.Resources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
 
 import java.io.File;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,29 +22,32 @@ import java.util.regex.Pattern;
  * 注册<mapper接口，mapper代理对象工厂>
  * @author yuhe
  */
-public class XMLConfigBuilder {
+public class XMLMapperBuilder {
 
-    private Logger logger = LoggerFactory.getLogger(XMLConfigBuilder.class);
+    private Logger logger = LoggerFactory.getLogger(XMLMapperBuilder.class);
 
     private String basePackage;
 
     private Configuration configuration;
 
-    public XMLConfigBuilder(String basePackage, Configuration configuration) {
+    public XMLMapperBuilder(String basePackage, Configuration configuration) {
         this.basePackage = basePackage;
         this.configuration = configuration;
     }
 
     public void parse() {
+        // 获取用户配置的mapper文件所在目录
         String resourcePath = this.getClass().getClassLoader().getResource("").getPath();
         File basePackage = new File(resourcePath + this.basePackage);
         if(!basePackage.isDirectory()) {
             throw new RuntimeException("path " +basePackage+ "is not a directory");
         }
 
+        // 解析xml文件
         Map<String, XNode> mappedStatements = new HashMap<>();
         File[] mappers = basePackage.listFiles();
         for(File mapper : mappers) {
+            // 注册mapper接口代理工厂、解析出xnode
             this.getMapperElement(mapper,mappedStatements);
         }
         this.configuration.setMappedStatements(mappedStatements);
